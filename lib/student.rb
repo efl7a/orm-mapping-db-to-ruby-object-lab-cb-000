@@ -61,10 +61,13 @@ class Student
   end
 
   def self.count_all_students_in_grade_9
+    count
     sql = <<-SQL
       SELECT * FROM students WHERE grade = '9'
     SQL
-    binding.pry
-    DB[:conn].execute(sql).size
+    DB[:conn].execute(sql).each do |row|
+      count += 1
+    end
+    count
   end
 end

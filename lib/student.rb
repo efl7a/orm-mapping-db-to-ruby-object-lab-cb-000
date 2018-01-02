@@ -61,13 +61,11 @@ class Student
   end
 
   def self.count_all_students_in_grade_9
-    count = 0
     sql = <<-SQL
       SELECT * FROM students WHERE grade = '9'
     SQL
-    DB[:conn].execute(sql).each do |row|
-      count += 1
+    DB[:conn].execute(sql).map do |row|
+      Student.new(row)
     end
-    count
   end
 end
